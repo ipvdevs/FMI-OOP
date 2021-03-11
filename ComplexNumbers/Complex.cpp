@@ -16,7 +16,7 @@ Complex::Complex(const Complex &complexNum) {
 }
 
 void Complex::print() const {
-  //Print only the real part (imaginary might be equal to zero)
+  // Print only the real part (imaginary might be equal to zero)
   std::cout << realPart;
   if (this->imaginaryPart > 0) {
     std::cout << " + " << imaginaryPart << imaginaryUnit;
@@ -30,14 +30,18 @@ bool Complex::isEqualTo(const Complex &other) const {
   return (this->realPart == other.realPart) && (this->imaginaryPart == other.imaginaryPart);
 }
 
-//Add another number to the current one
-void Complex::addComplex(const Complex &other) {
+void Complex::conjugateComplex(){
+  this->imaginaryPart *= -1;
+}
+
+// Add another number to the current one
+void Complex::addComplexTo(const Complex &other) {
   this->realPart += other.realPart;
   this->imaginaryPart += other.imaginaryPart;
 }
 
-void Complex::productComplex(const Complex &other) {
-  //(a + bi)(c + di) = (ac - bd) + (ad + bc)i
+void Complex::multiplyComplexTo(const Complex &other) {
+  // (a + bi)(c + di) = (ac - bd) + (ad + bc)i
   double a = this->realPart, b = this->imaginaryPart;
   double c = other.realPart, d = other.imaginaryPart;
   this->realPart = (a * c - b * d);
