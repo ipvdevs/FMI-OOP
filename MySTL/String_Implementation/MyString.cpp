@@ -25,12 +25,11 @@ MyString::~MyString() {
   delete[] array;
 }
 
-//char &MyString::operator[](unsigned int index) {
-//  return <#initializer#>;
-//}
-//
+char &MyString::operator[](unsigned int index) {
+  return array[index];
+}
 
-MyString MyString::operator+(const MyString &other) {
+MyString MyString::operator+(const MyString &other) const {
   MyString result = *this;
   result += other;
   return result;
@@ -56,32 +55,44 @@ MyString &MyString::operator+=(const MyString &other) {
   return *this;
 }
 
-bool MyString::operator==(const MyString &other) {
+bool MyString::operator==(const MyString &other) const {
   return strComparator(array, other.array) == 0;
 }
 
-bool MyString::operator!=(const MyString &other) {
+bool MyString::operator!=(const MyString &other) const {
   return strComparator(array, other.array) != 0;
 }
 
-bool MyString::operator<(const MyString &other) {
+bool MyString::operator<(const MyString &other) const {
   return strComparator(array, other.array) < 0;
 }
 
-bool MyString::operator>(const MyString &other) {
+bool MyString::operator>(const MyString &other) const {
   return strComparator(array, other.array) > 0;
 }
 
-bool MyString::operator<=(const MyString &other) {
+bool MyString::operator<=(const MyString &other) const {
   return strComparator(array, other.array) <= 0;
 }
 
-bool MyString::operator>=(const MyString &other) {
+bool MyString::operator>=(const MyString &other) const {
   return strComparator(array, other.array) >= 0;
 }
 
 unsigned int MyString::length() const {
   return arraySize - 1;
+}
+
+void MyString::append_char(char ch) {
+  // Add +1 memory space for ch
+  unsigned int newSize = arraySize + 1;
+  char *buffer = new char[newSize];
+  strCopy(array, buffer, newSize - 1);
+  buffer[newSize - 2] = ch;
+  buffer[newSize - 1] = '\0';
+  delete[] array;
+  array = buffer;
+  arraySize = newSize;
 }
 
 void MyString::setStr(const char *str) {
@@ -90,8 +101,21 @@ void MyString::setStr(const char *str) {
   strCopy(str, array, arraySize);
 }
 
+bool MyString::isEmpty() const {
+  return (arraySize == 1);
+}
+
+void MyString::clear() {
+  delete[] array;
+  array = new char[1]{'\0'};
+  arraySize = 1;
+}
+
+const char *MyString::cString() const {
+  return array;
+}
+
 void MyString::strCopy(const char *src, char *dest, const unsigned int destLength) {
-  // Add +1 for terminating zero (NULL)
   if (src == nullptr) {
     // Exception placeholder
     return;
