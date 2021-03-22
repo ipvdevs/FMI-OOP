@@ -17,7 +17,7 @@ class IntStack {
   int pop();
   // Fetch the first element of the stack
   int peek() const;
-  unsigned int elementsCount() const;
+  unsigned int size() const;
   bool isEmpty() const;
   void printElements() const;
 

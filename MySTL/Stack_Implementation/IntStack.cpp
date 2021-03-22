@@ -1,4 +1,4 @@
-#include "IntStack.h"
+#include "IntStack.hpp"
 
 // Default value for size is 0
 IntStack::IntStack(const int size) : stackSize(size), top(-1) {
@@ -63,7 +63,7 @@ int IntStack::peek() const {
   return stack[top];
 }
 
-unsigned int IntStack::elementsCount() const {
+unsigned int IntStack::size() const {
   return (top + 1);
 }
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "IntStack.h"
+#include "IntStack.hpp"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ int main() {
   stack.push(2);
   stack.push(3);
   stack.printElements();
-  std::cout << "Elements count: " << stack.elementsCount() << '\n';
+  std::cout << "Elements count: " << stack.size() << '\n';
   std::cout << "Top (peek): " << stack.peek() << '\n';
   std::cout << "Try push another (stack is full):" << '\n';
   stack.push(4);
