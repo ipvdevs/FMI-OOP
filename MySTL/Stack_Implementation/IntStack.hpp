@@ -1,5 +1,5 @@
-#ifndef INTSTACK_H_
-#define INTSTACK_H_
+#ifndef INTSTACK_HPP_
+#define INTSTACK_HPP_
 
 #include <iostream>
 
@@ -28,4 +28,4 @@ class IntStack {
   bool isFull() const;
 };
 
-#endif //INTSTACK_H_
+#endif //INTSTACK_HPP_

@@ -1,9 +1,8 @@
 #include "IntStack.hpp"
 
 // Default value for size is 0
-IntStack::IntStack(const int size) : stackSize(size), top(-1) {
-  stack = new int[size];
-}
+IntStack::IntStack(const int size)
+    : stackSize(size), top(-1), stack(new int[size]) {}
 
 IntStack::~IntStack() {
   delete[] stack;
@@ -14,7 +13,7 @@ IntStack::IntStack(const IntStack &other) {
   this->top = other.top;
   this->stack = new int[stackSize];
   for (int i = 0; i <= top; ++i) {
-    stack[i] = other.stack[i];
+    this->stack[i] = other.stack[i];
   }
 }
 
@@ -30,34 +29,33 @@ IntStack &IntStack::operator=(const IntStack &other) {
       this->stack[i] = other.stack[i];
     }
   }
-
   return *this;
 }
 
 void IntStack::push(int element) {
-  if (isFull()) {
+  if (this->isFull()) {
     std::cout << "Stack Overflow!" << std::endl;
     return;
   }
 
-  top += 1;
+  ++top;
   stack[top] = element;
 }
 
 int IntStack::pop() {
-  if (isEmpty()) {
-    std::cout << "Stack is empty: cannot pop an element!" << '\n';
+  if (this->isEmpty()) {
+    std::cout << "Stack is empty: cannot pop an element!" << std::endl;
     return -1;
   }
 
   int popElement = stack[top];
-  top = top - 1;
+  --top;
   return popElement;
 }
 
 int IntStack::peek() const {
-  if (isEmpty()) {
-    std::cout << "Stack is empty: there is nothing on the top!" << '\n';
+  if (this->isEmpty()) {
+    std::cout << "Stack is empty: there is nothing on the top!" << std::endl;
     return -1;
   }
   return stack[top];
@@ -72,7 +70,7 @@ bool IntStack::isEmpty() const {
 }
 
 void IntStack::printElements() const {
-  if (isEmpty()) {
+  if (this->isEmpty()) {
     std::cout << "Stack is empty!" << '\n';
     return;
   }
@@ -88,5 +86,3 @@ void IntStack::printElements() const {
 bool IntStack::isFull() const {
   return (top + 1 == stackSize);
 }
-
-
