@@ -1,9 +1,9 @@
 #include <iostream>
-#include "MyString.h"
+#include "String.hpp"
 
-int main() {
-  MyString example = "Test Str";
-  std::cout << example.cString() << '\n';
+void sample() {
+  String example = "Test Str";
+  std::cout << example;
   std::cout << "Length: ";
   std::cout << example.length() << '\n';
   std::cout << "Is empty: ";
@@ -14,8 +14,15 @@ int main() {
   std::cout << "Length: ";
   std::cout << example.length() << '\n';
   example.append_char('@');
-  std::cout << example.cString() << " - " << "length: " << example.length() << '\n';
+  std::cout << example << " - " << "length: " << example.length() << '\n';
   example = "End";
-  std::cout << example.cString() << std::endl;
+  std::cout << example << std::endl;
+}
+
+int main() {
+
+  // Show sample class functionality
+  sample();
+
   return 0;
 }

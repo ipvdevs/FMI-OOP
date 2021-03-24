@@ -1,19 +1,19 @@
 #include <iostream>
-#include "MyString.h"
+#include "String.hpp"
 
-MyString::MyString() : array(new char[1]), arraySize(1) {
+String::String() : array(new char[1]), arraySize(1) {
   array[0] = '\0';
 }
 
-MyString::MyString(const char *str) {
+String::String(const char *str) : array(nullptr), arraySize(0) {
   setStr(str);
 }
 
-MyString::MyString(const MyString &other) {
+String::String(const String &other) : array(nullptr), arraySize(0) {
   setStr(other.array);
 }
 
-MyString &MyString::operator=(const MyString &other) {
+String &String::operator=(const String &other) {
   if (this != &other) {
     delete[] array;
     setStr(other.array);
@@ -21,21 +21,21 @@ MyString &MyString::operator=(const MyString &other) {
   return *this;
 }
 
-MyString::~MyString() {
+String::~String() {
   delete[] array;
 }
 
-char &MyString::operator[](unsigned int index) {
+char &String::operator[](unsigned int index) {
   return array[index];
 }
 
-MyString MyString::operator+(const MyString &other) const {
-  MyString result = *this;
+String String::operator+(const String &other) const {
+  String result = *this;
   result += other;
   return result;
 }
 
-MyString &MyString::operator+=(const MyString &other) {
+String &String::operator+=(const String &other) {
   // Expanding the size of current array storage for string
   // Both sizes include NULL. Therefore we subtract 1.
   arraySize = arraySize + other.arraySize - 1;
@@ -55,35 +55,48 @@ MyString &MyString::operator+=(const MyString &other) {
   return *this;
 }
 
-bool MyString::operator==(const MyString &other) const {
+bool String::operator==(const String &other) const {
   return strComparator(array, other.array) == 0;
 }
 
-bool MyString::operator!=(const MyString &other) const {
+bool String::operator!=(const String &other) const {
   return strComparator(array, other.array) != 0;
 }
 
-bool MyString::operator<(const MyString &other) const {
+bool String::operator<(const String &other) const {
   return strComparator(array, other.array) < 0;
 }
 
-bool MyString::operator>(const MyString &other) const {
+bool String::operator>(const String &other) const {
   return strComparator(array, other.array) > 0;
 }
 
-bool MyString::operator<=(const MyString &other) const {
+bool String::operator<=(const String &other) const {
   return strComparator(array, other.array) <= 0;
 }
 
-bool MyString::operator>=(const MyString &other) const {
+bool String::operator>=(const String &other) const {
   return strComparator(array, other.array) >= 0;
 }
 
-unsigned int MyString::length() const {
+std::ostream &operator<<(std::ostream &output, const String &str) {
+  output << str.cString();
+  return output;
+}
+
+std::istream &operator>>(std::istream &input, String &str) {
+  char ch;
+  while ((ch = input.get()) && (!String::isCharTerminating(ch))) {
+    str.append_char(ch);
+  }
+  return input;
+}
+
+unsigned int String::length() const {
   return arraySize - 1;
 }
 
-void MyString::append_char(char ch) {
+void String::append_char(char ch) {
   // Add +1 memory space for ch
   unsigned int newSize = arraySize + 1;
   char *buffer = new char[newSize];
@@ -95,27 +108,27 @@ void MyString::append_char(char ch) {
   arraySize = newSize;
 }
 
-void MyString::setStr(const char *str) {
+void String::setStr(const char *str) {
   arraySize = strLength(str) + 1;
   array = new char[arraySize];
   strCopy(str, array, arraySize);
 }
 
-bool MyString::isEmpty() const {
+bool String::isEmpty() const {
   return (arraySize == 1);
 }
 
-void MyString::clear() {
+void String::clear() {
   delete[] array;
   array = new char[1]{'\0'};
   arraySize = 1;
 }
 
-const char *MyString::cString() const {
+const char *String::cString() const {
   return array;
 }
 
-void MyString::strCopy(const char *src, char *dest, const unsigned int destLength) {
+void String::strCopy(const char *src, char *dest, const unsigned int destLength) {
   if (src == nullptr) {
     // Exception placeholder
     return;
@@ -127,7 +140,7 @@ void MyString::strCopy(const char *src, char *dest, const unsigned int destLengt
   dest[destLength - 1] = '\0';
 }
 
-unsigned int MyString::strLength(const char *src) {
+unsigned int String::strLength(const char *src) {
   if (src == nullptr) {
     // Exception placeholder
     return 0;
@@ -145,7 +158,7 @@ unsigned int MyString::strLength(const char *src) {
  * Otherwise result would be a positive or negative number
  * depending on the lexicographical order
 */
-int MyString::strComparator(const char *str1, const char *str2) {
+int String::strComparator(const char *str1, const char *str2) {
   while ((*str1 != '\0' && *str2 != '\0') && (*str1 == *str2)) {
     ++str1;
     ++str2;
@@ -153,5 +166,10 @@ int MyString::strComparator(const char *str1, const char *str2) {
 
   return *str1 - *str2;
 }
+
+bool String::isCharTerminating(const char &ch) {
+  return ch == '\n' || ch == '\r' || ch == ' ' || ch == '\t';
+}
+
 
 
