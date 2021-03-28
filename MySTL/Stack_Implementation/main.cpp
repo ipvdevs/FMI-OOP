@@ -1,25 +1,37 @@
 #include <iostream>
-#include "IntStack.hpp"
-
-using namespace std;
+#include "StackDynamic.hpp"
 
 int main() {
-  IntStack stack(3);
-  stack.push(1);
-  stack.push(2);
-  stack.push(3);
-  stack.printElements();
-  std::cout << "Elements count: " << stack.size() << '\n';
-  std::cout << "Top (peek): " << stack.peek() << '\n';
-  std::cout << "Try push another (stack is full):" << '\n';
-  stack.push(4);
-  std::cout << "Pop: " << stack.pop() << '\n';
-  std::cout << "Elements after pop:" << '\n';
-  stack.printElements();
+  StackDynamic stk;
+  stk.pop_back();
 
-  std::cout << "Predefined assignment operator (stack copy):" << '\n';
-  IntStack operatorStackCpy = stack;
-  operatorStackCpy.printElements();
+  std::cout << stk.size() << std::endl;
+  stk.push_back(10);
+  std::cout << stk.peek() << '\n';
+  std::cout << stk.size() << std::endl;
+  std::cout << stk.pop_back() << std::endl;
+  std::cout << stk.peek() << '\n';
+  std::cout << stk.size() << std::endl;
 
+  stk.push_back(1);
+  std::cout << stk.peek() << '\n';
+
+  stk.push_back(2);
+  std::cout << stk.peek() << '\n';
+
+  stk.push_back(3);
+  std::cout << stk.peek() << '\n';
+
+  stk.push_back(4);
+  std::cout << stk.peek() << '\n';
+
+  std::cout << stk.size() << std::endl;
+
+  StackDynamic stkCpy;
+
+  stkCpy = stk;
+
+  stk.printElements();
+  stkCpy.printElements();
   return 0;
 }
