@@ -1,10 +1,11 @@
 #include <iostream>
-#include "IntVector.hpp"
+#include "Vector.hpp"
 
-int main() {
-  IntVector sample;
+template<typename T>
+void SampleWithNumbers(Vector<T>& sample) {
 
-  sample.push_back(1);
+  // Implicit cast if it's double
+  sample.push_back(1.3);
   sample.push_back(2);
   sample.push_back(3);
 
@@ -20,5 +21,15 @@ int main() {
   std::cout << std::endl;
 
   std::cout << sample.length() << '\n';
+}
+
+int main() {
+  Vector<int> intVector;
+  SampleWithNumbers(intVector);
+
+  std::cout << std::endl;
+
+  Vector<double> doubleVector;
+  SampleWithNumbers(doubleVector);
   return 0;
 }
