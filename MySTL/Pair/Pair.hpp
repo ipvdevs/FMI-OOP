@@ -13,10 +13,11 @@ class Pair {
 
   Pair<T1, T2>& operator=(const Pair&);
   bool operator==(const Pair&) const;
-  // TODO SWAP
 
   T1 getFirstType() const;
   T2 getSecondType() const;
+
+  void swap(const Pair<T1, T2>& first_type, const Pair<T1, T2>& second_type);
 
 };
 
@@ -52,4 +53,10 @@ T2 Pair<T1, T2>::getSecondType() const {
   return this->second_type;
 }
 
+template<typename T1, typename T2>
+void Pair<T1, T2>::swap(const Pair<T1, T2>& lhs, const Pair<T1, T2>& rhs) {
+  Pair<T1, T2> temp = lhs;
+  lhs = rhs;
+  rhs = temp;
+}
 #endif //PAIR__PAIR_HPP_
