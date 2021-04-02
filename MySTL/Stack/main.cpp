@@ -1,37 +1,29 @@
 #include <iostream>
-#include "StackDynamic.hpp"
+#include "Stack.hpp"
 
 int main() {
-  StackDynamic stk;
-  stk.pop_back();
+  Stack<int> sample;
+  sample.push_back(1);
+  sample.push_back(2);
+  sample.push_back(3);
+  Stack<int> sampleCpy = sample;
 
-  std::cout << stk.size() << std::endl;
-  stk.push_back(10);
-  std::cout << stk.peek() << '\n';
-  std::cout << stk.size() << std::endl;
-  std::cout << stk.pop_back() << std::endl;
-  std::cout << stk.peek() << '\n';
-  std::cout << stk.size() << std::endl;
+  while (sampleCpy.size() > 0) {
+    std::cout << sampleCpy.pop_back() << '\n';
+  }
 
-  stk.push_back(1);
-  std::cout << stk.peek() << '\n';
+  Stack<std::string> names;
+  names.push_back("Ivan");
+  names.push_back("George");
+  names.push_back("Peter");
 
-  stk.push_back(2);
-  std::cout << stk.peek() << '\n';
+  std::cout << names.size() << '\n';
 
-  stk.push_back(3);
-  std::cout << stk.peek() << '\n';
+  std::cout << names.peek() << '\n';
 
-  stk.push_back(4);
-  std::cout << stk.peek() << '\n';
+  while (!names.isEmpty()) {
+    std::cout << names.pop_back() << '\n';
+  }
 
-  std::cout << stk.size() << std::endl;
-
-  StackDynamic stkCpy;
-
-  stkCpy = stk;
-
-  stk.printElements();
-  stkCpy.printElements();
   return 0;
 }
