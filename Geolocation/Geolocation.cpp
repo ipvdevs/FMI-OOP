@@ -12,6 +12,6 @@ std::istream& operator>>(std::istream& input, Geolocation& location) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Geolocation& location) {
-  out << '[' << location.latitude << ", " << location.longitude << ']';
+  out << '[' << location.latitude << ", " << location.longitude << ']' << std::endl;
   return out;
 }

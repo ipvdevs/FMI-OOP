@@ -26,9 +26,7 @@ bool GeolocationDatabase::read(const char* filepath) {
 std::ostream& operator<<(std::ostream& output, GeolocationDatabase& database) {
   output << std::fixed << std::setprecision(5);
   for (Geolocation geolocation : database.locations) {
-    double latitude = geolocation.latitude;
-    double longitude = geolocation.longitude;
-    output << '[' << latitude << ", " << longitude << ']' << '\n';
+    output << geolocation;
   }
 
   output << std::endl;
