@@ -77,7 +77,7 @@ Vector<T>& Vector<T>::operator=(const Vector& other) {
 template<typename T>
 T& Vector<T>::operator[](const unsigned int index) {
   // Access Violation exception placeholder
-  assert(index < elementsCount || index >= 0);
+  assert(index < elementsCount && index >= 0);
   return array[index];
 }
 
